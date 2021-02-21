@@ -42,7 +42,7 @@ namespace FoodBoxWebApi.Business.Implemetations
                 var sql = "exec [SP_SnacksById] @id_snacks";
                 var values = new { id_snacks = id };
 
-                var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql,values);
+                var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql, values);
                 return ret;
             }
 
@@ -50,14 +50,25 @@ namespace FoodBoxWebApi.Business.Implemetations
 
         public async Task<SolicitationProductSnacksDTO> PostSnacks(SolicitationProductSnacksDTO body)
         {
+            string idProduct = "";
+            string qtdProduct = "";
+            foreach (var item in body.ProductSnacks)
+            {
+                if (string.IsNullOrEmpty(idProduct)) idProduct = item.id_product.ToString();
+                else idProduct += "," + item.id_product.ToString();
+                if (string.IsNullOrEmpty(qtdProduct)) qtdProduct = item.qtdProduct.ToString();
+                else qtdProduct += "," + item.qtdProduct.ToString();
+            }
+
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
 
-                var sql = "exec [SP_SnacksById] @id_snacks";
-                var values = new { id_snacks = id };
+                var sql = "exec [SP_GeneratorOrder] @id_product ,@qtd_product ,@name ,@description ,@calculation";
+                var values = new { id_product = idProduct, qtd_product = qtdProduct, name = body.name, description = body.description, calculation = body.calculation };
 
-                var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql, values);
+                var ret = await connection.QueryFirstOrDefaultAsync<int>(sql, values);
+                body.code = ret;
 
                 return body;
             }

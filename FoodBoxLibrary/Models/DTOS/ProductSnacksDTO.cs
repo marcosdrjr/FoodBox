@@ -6,16 +6,19 @@ namespace FoodBoxLibrary.Models.DTOS
 {
     public class ProductSnacksDTO : ProductDTO
     {
-        public int QtdPoduct { get; set; }
+        public int qtdProduct { get; set; }
 
-        public ProductSnacksDTO(int qtdPoduct ,ProductDTO poduct)
+        public ProductSnacksDTO()
         {
-            QtdPoduct = qtdPoduct;
-            this.name = poduct.name;
-            this.id_product = poduct.id_product;
-            this.description = poduct.description;
-            this.value = poduct.value;
-            this.expiration_date = poduct.expiration_date;
+        }
+        public ProductSnacksDTO(int qtdProduct ,ProductDTO product)
+        {
+            this.qtdProduct = qtdProduct;
+            this.name = product.name;
+            this.id_product = product.id_product;
+            this.description = product.description;
+            this.value = product.value;
+            this.expiration_date = product.expiration_date;
         }
     }
 }

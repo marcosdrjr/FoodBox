@@ -140,7 +140,7 @@ namespace FoodBoxWindForms
             foreach (DataGridViewRow row in this.dataGridView1.Rows)
             {
                 var cust = row.DataBoundItem as ProductSnacksDTO;
-                ValueProducts = cust.QtdPoduct * cust.value;
+                ValueProducts = cust.qtdProduct * cust.value;
                 ValueFinale += ValueProducts;
             }
             if (ValueFinale > 0)
