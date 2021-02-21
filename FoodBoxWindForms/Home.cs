@@ -170,10 +170,10 @@ namespace FoodBoxWindForms
                 listProductSnacks.Add(row.DataBoundItem as ProductSnacksDTO);
             }
 
-            double Calculation;
-            double.TryParse(txtCalculation.Text, out Calculation);
+            double calculation;
+            double.TryParse(txtCalculation.Text, out calculation);
 
-            var solicitationProductSnacks = new SolicitationProductSnacksDTO(txtName.Text, txtDescription.Text, Calculation, listProductSnacks);
+            var solicitationProductSnacks = new SolicitationProductSnacksDTO(txtName.Text, txtDescription.Text, calculation, listProductSnacks);
             var postSnacks = Integra.PostSnacks(solicitationProductSnacks);
             if (postSnacks == null) { MessageBox.Show("Error you solicitation!"); return; }
             if (postSnacks.code <= 0 ) { MessageBox.Show("Error you solicitation!"); return; }

@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodBoxWebApi", "FoodBoxWebApi\FoodBoxWebApi.csproj", "{84BD9DB3-B7E5-44CE-8A1E-0B971719BE53}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{99D41C61-089C-4944-A79E-3D77A7E6F9E0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client-side", "Client-side", "{7E0C7411-4D95-4F96-B6CF-E34B53DE09C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server-side", "Server-side", "{78AA7A59-042C-43D1-8A07-F0CCEA829C24}"

@@ -10,5 +10,7 @@ namespace FoodBoxWebApi.Business.Intefaces
     {
         Task<List<SnacksDTO>> GetSnacks();
         Task<SnacksDTO> GetSnacksById(int ID);
+        Task<SolicitationProductSnacksDTO> PostSnacks(SolicitationProductSnacksDTO  body);
+
     }
 }

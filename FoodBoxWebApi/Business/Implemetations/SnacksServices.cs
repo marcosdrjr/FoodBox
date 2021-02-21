@@ -47,5 +47,20 @@ namespace FoodBoxWebApi.Business.Implemetations
             }
 
         }
+
+        public async Task<SolicitationProductSnacksDTO> PostSnacks(SolicitationProductSnacksDTO body)
+        {
+            using (var connection = new SqlConnection(configuration.ConnectionStrings))
+            {
+                await connection.OpenAsync();
+
+                var sql = "exec [SP_SnacksById] @id_snacks";
+                var values = new { id_snacks = id };
+
+                var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql, values);
+
+                return body;
+            }
+        }
     }
 }

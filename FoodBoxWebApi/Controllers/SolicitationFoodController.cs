@@ -30,6 +30,7 @@ namespace FoodBoxWebApi.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
         // PUT api/<SolicitationFoodController>/5

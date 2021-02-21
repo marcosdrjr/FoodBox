@@ -31,5 +31,13 @@ namespace FoodBoxWebApi.Controllers
 
             return Ok(data);
         }
+        // POST api/<SnacksController>
+        [HttpPost]
+        public async Task<ActionResult<SolicitationProductSnacksDTO>> Post([FromBody] SolicitationProductSnacksDTO body, [FromServices] ISnacksServices snacks)
+        {
+            var data = await snacks.PostSnacks(body);
+
+            return Ok(data);
+        }
     }
 }

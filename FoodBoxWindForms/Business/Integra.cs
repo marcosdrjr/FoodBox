@@ -36,13 +36,13 @@ namespace FoodBoxWindForms.Business
 
         public static List<RequestsSolicitationDTO> GetLisRequestsSolicitation()
         {
-            var client = new RestClient("https://localhost:44306/api/Snacks");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("accept", "text/plain");
-            IRestResponse response = client.Execute(request);
-            var ret = JsonConvert.DeserializeObject<List<RequestsSolicitationDTO>>(response.Content);
-            return ret;
+            //var client = new RestClient("https://localhost:44306/api/Snacks");
+            //client.Timeout = -1;
+            //var request = new RestRequest(Method.GET);
+            //request.AddHeader("accept", "text/plain");
+            //IRestResponse response = client.Execute(request);
+           // var ret = JsonConvert.DeserializeObject<List<RequestsSolicitationDTO>>(response.Content);
+            return null;
         }
 
         public static SolicitationProductSnacksDTO PostSnacks(SolicitationProductSnacksDTO solicitationProductSnacks)

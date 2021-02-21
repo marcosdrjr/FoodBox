@@ -9,14 +9,14 @@ namespace FoodBoxLibrary.Models.DTOS
         public int code { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public double Cauculation { get; set; }
+        public double Calculation { get; set; }
         public List<ProductSnacksDTO> ProductSnacks { get; set; }
 
-        public SolicitationProductSnacksDTO(string name, string description, double cauculation, List<ProductSnacksDTO> productSnacks)
+        public SolicitationProductSnacksDTO(string name, string description, double calculation, List<ProductSnacksDTO> productSnacks)
         {
             this.name = name;
             this.description = description;
-            Cauculation = cauculation;
+            this.Calculation = calculation;
             ProductSnacks = productSnacks;
         }
     }
