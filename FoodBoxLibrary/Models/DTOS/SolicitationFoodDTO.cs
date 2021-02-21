@@ -10,8 +10,8 @@ namespace FoodBoxLibrary.Models.DTOS
         public int id_snacks { get; set; }
         public int id_status_solicitation { get; set; }
         public double value { get; set; }
-        public DateTime create_at { get; set; }
-        public DateTime update_at { get; set; }
-        public bool status { get; set; }
+        //public DateTime create_at { get; set; }
+        //public DateTime update_at { get; set; }
+        //public bool status { get; set; }
     }
 }

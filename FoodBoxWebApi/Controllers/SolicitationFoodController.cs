@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodBoxLibrary.Models.DTOS;
+using FoodBoxWebApi.Business.Intefaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,35 +16,20 @@ namespace FoodBoxWebApi.Controllers
     {
         // GET: api/<SolicitationFoodController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<SolicitationFoodDTO>>> Get([FromServices] ISolicitationFoodServices solicitationFood)
         {
-            return new string[] { "value1", "value2" };
+            var data = await solicitationFood.GetSolicitationFood();
+
+            return Ok(data);
         }
 
         // GET api/<SolicitationFoodController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<SolicitationFoodDTO>> Get(int id, [FromServices] ISolicitationFoodServices solicitationFood)
         {
-            return "value";
-        }
+            var data = await solicitationFood.GetSolicitationFoodById(id);
 
-        // POST api/<SolicitationFoodController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-
-        }
-
-        // PUT api/<SolicitationFoodController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SolicitationFoodController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(data);
         }
     }
 }

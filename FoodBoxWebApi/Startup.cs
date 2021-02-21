@@ -39,8 +39,7 @@ namespace FoodBoxWebApi
             services.AddScoped<ConfigurationSettings>();
             services.AddScoped<ISnacksServices, SnacksServices>();
             services.AddScoped<IPoductServices, PoductServices>();
-            
-
+            services.AddScoped<ISolicitationFoodServices, SolicitationFoodServices>();
 
         }
 
