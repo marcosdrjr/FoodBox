@@ -17,7 +17,7 @@ namespace FoodBoxWindForms
         public List<SnacksDTO> Snacks { get; set; }
         public List<ProductDTO> Product { get; set; }
         public List<ProductSnacksDTO> IngredientsSnacks { get; set; }
-        public List<RequestsSolicitationDTO> RequestsSolicitation{ get; set; }
+        public List<RequestsSolicitationCodeDTO> RequestsSolicitation { get; set; }
 
         public Home()
         {
@@ -83,12 +83,15 @@ namespace FoodBoxWindForms
         {
             try
             {
-                var selectedItems = dataGridViewRequests.SelectedRows[0].DataBoundItem as RequestsSolicitationDTO;
-                var comand = selectedItems.name.ToString();
+                var selectedItems = dataGridViewRequests.SelectedRows[0].DataBoundItem as RequestsSolicitationCodeDTO;
+                if (this.dataGridViewRequests.SelectedRows.Count == 0) return;
+                var comand = selectedItems.codes.ToString();
+                comand = comand.PadLeft(6, '0');
+                txtCodes.Text = comand = comand.PadLeft(6, '0');
+                ;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Some error occured: " + ex.Message + " - " + ex.Source);
             }
         }
@@ -150,6 +153,9 @@ namespace FoodBoxWindForms
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtCalculation.Text = null;
+            txtDescription.Text = null;
+            txtName.Text = null;
+            IngredientsSnacks = null;
             dataGridView1.DataSource = null;
             dataGridView1.AutoResizeColumns();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -176,11 +182,30 @@ namespace FoodBoxWindForms
             var solicitationProductSnacks = new SolicitationProductSnacksDTO(txtName.Text, txtDescription.Text, calculation, listProductSnacks);
             var postSnacks = Integra.PostSnacks(solicitationProductSnacks);
             if (postSnacks == null) { MessageBox.Show("Error you solicitation!"); return; }
-            if (postSnacks.code <= 0 ) { MessageBox.Show("Error you solicitation!"); return; }
+            if (postSnacks.code <= 0) { MessageBox.Show("Error you solicitation!"); return; }
 
             var requestsSolicitation = new RequestsSolicitationDTO(postSnacks.code.ToString().PadLeft(6, '0'), postSnacks.name, postSnacks.description);
             txtCodes.Text = requestsSolicitation.codes;
 
+            RequestsSolicitation = Integra.GetLisRequestsSolicitation();
+            var requestsSolicitation2 = this.RequestsSolicitation;
+            dataGridViewRequests.DataSource = requestsSolicitation2;
+            dataGridViewRequests.AutoResizeColumns();
+            dataGridViewRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewRequests.Update();
+            dataGridViewRequests.Refresh();
+
+
+            txtCalculation.Text = null;
+            txtDescription.Text = null;
+            txtName.Text = null;
+            IngredientsSnacks = null;
+            dataGridView1.DataSource = null;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.Update();
+            dataGridView1.Refresh();
         }
     }
 }

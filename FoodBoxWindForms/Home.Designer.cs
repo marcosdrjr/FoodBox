@@ -157,10 +157,13 @@ namespace FoodBoxWindForms
             // 
             // dataGridViewRequests
             // 
+            this.dataGridViewRequests.AllowUserToAddRows = false;
+            this.dataGridViewRequests.AllowUserToDeleteRows = false;
             this.dataGridViewRequests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRequests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewRequests.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewRequests.Name = "dataGridViewRequests";
+            this.dataGridViewRequests.ReadOnly = true;
             this.dataGridViewRequests.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRequests.Size = new System.Drawing.Size(173, 297);
             this.dataGridViewRequests.TabIndex = 0;

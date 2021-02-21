@@ -4,9 +4,9 @@ using System.Text;
 
 namespace FoodBoxLibrary.Models.DTOS
 {
-    public class RequestsSolicitationDTO
+    public class RequestsSolicitationDTO: RequestsSolicitationCodeDTO
     {
-        public string codes { get; set; }
+        
         public string name { get; set; }
         public string description { get; set; }
 
