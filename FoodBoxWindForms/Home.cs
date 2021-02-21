@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodBoxLibrary.Models.DTOS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,53 +8,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FoodBoxWindForms.Business;
 
 namespace FoodBoxWindForms
 {
     public partial class Home : Form
     {
         public List<SnacksDTO> Snacks { get; set; }
+        public List<ProductDTO> Product { get; set; }
+        public List<ProductSnacksDTO> IngredientsSnacks { get; set; }
+        public List<RequestsSolicitationDTO> RequestsSolicitation{ get; set; }
+
         public Home()
         {
-            Snacks = GetSnacks();
+            Snacks = Integra.GetLisSnacks();
+            Product = Integra.GetLisProducts();
+            RequestsSolicitation = Integra.GetLisRequestsSolicitation();
+            IngredientsSnacks = null;
             InitializeComponent();
         }
 
-        private List<SnacksDTO> GetSnacks()
-        {
-            var list = new List<SnacksDTO>();
-            list.Add(new SnacksDTO()
-            {
-                name = "Lanche 1",
-                description = "teste"
-            });
-            list.Add(new SnacksDTO()
-            {
-                name = "Lanche 2",
-                description = "teste"
-            });
-            list.Add(new SnacksDTO()
-            {
-                name = "Lanche 3",
-                description = "teste"
-            });
-            return list;
-        }
-
         private void Home_Load(object sender, EventArgs e)
-        {   
+        {
             var snacks = this.Snacks;
-            dataGridView1.DataSource = snacks;
+            var product = this.Product;
+            var requestsSolicitation = this.RequestsSolicitation;
+
+            dataGridViewSnacks.DataSource = snacks;
+            dataGridViewSnacks.AutoResizeColumns();
+            dataGridViewSnacks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            dataGridViewRequests.DataSource = requestsSolicitation;
+            dataGridViewRequests.AutoResizeColumns();
+            dataGridViewRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            var listProd = new List<string>();
+            product.ForEach(s => listProd.Add(s.name));
+            cbxIngredients.DataSource = listProd;
+
             if (string.IsNullOrEmpty(txtCodes.Text))
                 txtCodes.Text = "00000";
         }
 
+        #region GridView
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                var selctedSnacksDTO = dataGridView1.SelectedRows[0].DataBoundItem as SnacksDTO;
-                var comand = selctedSnacksDTO.name.ToString();
+                var selectedItems = dataGridView1.SelectedRows[0].DataBoundItem as ProductSnacksDTO;
+                var comand = selectedItems.name.ToString();
             }
             catch (Exception ex)
             {
@@ -66,8 +69,8 @@ namespace FoodBoxWindForms
         {
             try
             {
-                var selctedSnacksDTO = dataGridViewSnacks.SelectedRows[0].DataBoundItem as SnacksDTO;
-                var comand = selctedSnacksDTO.name.ToString();
+                var selectedItems = dataGridViewSnacks.SelectedRows[0].DataBoundItem as SnacksDTO;
+                var comand = selectedItems.name.ToString();
             }
             catch (Exception ex)
             {
@@ -75,11 +78,109 @@ namespace FoodBoxWindForms
                 MessageBox.Show("Some error occured: " + ex.Message + " - " + ex.Source);
             }
         }
-    }
 
-    public class SnacksDTO
-    {
-        public string name { get; set; }
-        public string description { get; set; }
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var selectedItems = dataGridViewRequests.SelectedRows[0].DataBoundItem as RequestsSolicitationDTO;
+                var comand = selectedItems.name.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Some error occured: " + ex.Message + " - " + ex.Source);
+            }
+        }
+
+        #endregion
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (cbxqtdIngredients?.SelectedIndex == null) { MessageBox.Show("Value Qtd. ingredients is not null!"); return; }
+            if (cbxqtdIngredients?.SelectedIndex < 0) { MessageBox.Show("Value Qtd. ingredients is not null!"); return; }
+            if (cbxIngredients.SelectedItem == null) { MessageBox.Show("Value is not null!"); return; }
+
+            int qtd;
+
+            var ValidateQtd = int.TryParse(cbxqtdIngredients.SelectedItem.ToString(), out qtd);
+            var ingredients = cbxIngredients.SelectedItem.ToString();
+
+            var prod = Product.Where(p => p.name == ingredients).FirstOrDefault();
+
+            var poductSnacksDTO = new ProductSnacksDTO(qtd, prod);
+            var ingredientsSnacksTMP = new List<ProductSnacksDTO>();
+
+
+            ingredientsSnacksTMP.Add(poductSnacksDTO);
+
+            if (IngredientsSnacks == null)
+                IngredientsSnacks = ingredientsSnacksTMP;
+            else
+            {
+                //var validaritemDuplicado = ingredientsSnacks.Where(p => p.id_product == poductSnacksDTO.id_product).Count();
+                //if (validaritemDuplicado > 0)
+                //{
+                //}
+                IngredientsSnacks.Add(poductSnacksDTO);
+            }
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = IngredientsSnacks;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.Update();
+            dataGridView1.Refresh();
+        }
+
+        private void btnCalculation_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView1.SelectedRows.Count == 0) { MessageBox.Show("Ingredients is not null!"); return; }
+            double ValueProducts = 0, ValueFinale = 0;
+            foreach (DataGridViewRow row in this.dataGridView1.Rows)
+            {
+                var cust = row.DataBoundItem as ProductSnacksDTO;
+                ValueProducts = cust.QtdPoduct * cust.value;
+                ValueFinale += ValueProducts;
+            }
+            if (ValueFinale > 0)
+                txtCalculation.Text = ValueFinale.ToString();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtCalculation.Text = null;
+            dataGridView1.DataSource = null;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.Update();
+            dataGridView1.Refresh();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView1.SelectedRows.Count == 0) { MessageBox.Show("Ingredients is not null!"); return; }
+            if (string.IsNullOrEmpty(txtCalculation.Text)) { MessageBox.Show("Is not Calculation!"); return; }
+            if (string.IsNullOrEmpty(txtName.Text)) { MessageBox.Show("Name is not null!"); return; }
+            if (string.IsNullOrEmpty(txtDescription.Text)) { MessageBox.Show("Description is not null!"); return; }
+
+            var listProductSnacks = new List<ProductSnacksDTO>();
+            foreach (DataGridViewRow row in this.dataGridView1.Rows)
+            {
+                listProductSnacks.Add(row.DataBoundItem as ProductSnacksDTO);
+            }
+
+            double Calculation;
+            double.TryParse(txtCalculation.Text, out Calculation);
+
+            var solicitationProductSnacks = new SolicitationProductSnacksDTO(txtName.Text, txtDescription.Text, Calculation, listProductSnacks);
+            var postSnacks = Integra.PostSnacks(solicitationProductSnacks);
+            if (postSnacks == null) { MessageBox.Show("Error you solicitation!"); return; }
+            if (postSnacks.code <= 0 ) { MessageBox.Show("Error you solicitation!"); return; }
+
+            var requestsSolicitation = new RequestsSolicitationDTO(postSnacks.code.ToString().PadLeft(6, '0'), postSnacks.name, postSnacks.description);
+            txtCodes.Text = requestsSolicitation.codes;
+
+        }
     }
 }

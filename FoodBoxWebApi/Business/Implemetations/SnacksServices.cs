@@ -24,7 +24,9 @@ namespace FoodBoxWebApi.Business.Implemetations
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
+
                 var sql = "exec [SP_Snacks]";
+
                 var ret = await connection.QueryAsync<SnacksDTO>(sql);
                 return ret.ToList();
             }
@@ -36,8 +38,10 @@ namespace FoodBoxWebApi.Business.Implemetations
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
+
                 var sql = "exec [SP_SnacksById] @id_snacks";
                 var values = new { id_snacks = id };
+
                 var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql,values);
                 return ret;
             }

@@ -8,7 +8,7 @@ namespace FoodBoxWebApi.Business.Intefaces
 {
    public interface IPoductServices
     {
-        Task<List<PoductDTO>> GetPoduct();
-        Task<PoductDTO> GetPoductById(int ID);
+        Task<List<ProductDTO>> GetPoduct();
+        Task<ProductDTO> GetPoductById(int ID);
     }
 }

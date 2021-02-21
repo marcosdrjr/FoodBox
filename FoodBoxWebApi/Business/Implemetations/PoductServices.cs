@@ -18,25 +18,29 @@ namespace FoodBoxWebApi.Business.Implemetations
             this.configuration = configuration;
         }
 
-        public async Task<List<PoductDTO>> GetPoduct()
+        public async Task<List<ProductDTO>> GetPoduct()
         {
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
+
                 var sql = "exec [SP_GetProduct]";
-                var ret = await connection.QueryAsync<PoductDTO>(sql);
+
+                var ret = await connection.QueryAsync<ProductDTO>(sql);
                 return ret.ToList();
             }
         }
 
-        public async Task<PoductDTO> GetPoductById(int id)
+        public async Task<ProductDTO> GetPoductById(int id)
         {   
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
+
                 var sql = "exec [SP_GetProductById] @id_product";
                 var values = new { id_product = id };
-                var ret = await connection.QueryFirstOrDefaultAsync<PoductDTO>(sql, values);
+
+                var ret = await connection.QueryFirstOrDefaultAsync<ProductDTO>(sql, values);
                 return ret;
             }
         }

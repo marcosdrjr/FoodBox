@@ -16,7 +16,7 @@ namespace FoodBoxWebApi.Controllers
     {
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<ActionResult<List<PoductDTO>>> Get([FromServices] IPoductServices snacks)
+        public async Task<ActionResult<List<ProductDTO>>> Get([FromServices] IPoductServices snacks)
         {
             var data = await snacks.GetPoduct();
 
@@ -25,7 +25,7 @@ namespace FoodBoxWebApi.Controllers
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PoductDTO>> Get(int id, [FromServices] IPoductServices snacks)
+        public async Task<ActionResult<ProductDTO>> Get(int id, [FromServices] IPoductServices snacks)
         {
             var data = await snacks.GetPoductById(id);
 
