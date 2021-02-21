@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodBoxLibrary.Models.DTOS;
+using FoodBoxWebApi.Business.Intefaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,12 @@ namespace FoodBoxWebApi.Controllers
     {
         // GET: api/<SnacksController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<SnacksDTO>>> Get(
+            [FromServices] ISnacksServices snacks)
         {
-            return new string[] { "value1", "value2" };
+            var data = await snacks.GetSnacks();
+
+            return Ok(data);
         }
 
         // GET api/<SnacksController>/5

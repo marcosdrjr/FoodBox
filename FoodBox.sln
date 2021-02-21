@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodBoxWindForms", "FoodBox
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{F1EA99AA-8034-49A6-95A2-9FED09A6D717}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodBoxLibrary", "FoodBoxLibrary\FoodBoxLibrary.csproj", "{D7F2211D-B4FC-4444-A528-985292AF4D03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{3E96B5E6-F81D-466D-9EAE-9B41A897B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E96B5E6-F81D-466D-9EAE-9B41A897B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E96B5E6-F81D-466D-9EAE-9B41A897B663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F2211D-B4FC-4444-A528-985292AF4D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F2211D-B4FC-4444-A528-985292AF4D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F2211D-B4FC-4444-A528-985292AF4D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F2211D-B4FC-4444-A528-985292AF4D03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{84BD9DB3-B7E5-44CE-8A1E-0B971719BE53} = {78AA7A59-042C-43D1-8A07-F0CCEA829C24}
 		{3E96B5E6-F81D-466D-9EAE-9B41A897B663} = {7E0C7411-4D95-4F96-B6CF-E34B53DE09C4}
+		{D7F2211D-B4FC-4444-A528-985292AF4D03} = {F1EA99AA-8034-49A6-95A2-9FED09A6D717}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {868AF221-AC1B-4ABD-9CBC-E53C489D8D91}

@@ -1,3 +1,5 @@
+using FoodBoxWebApi.Business.Implemetations;
+using FoodBoxWebApi.Business.Intefaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,9 @@ namespace FoodBoxWebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodBoxWebApi", Version = "v1" });
             });
+
+            services.AddScoped<ISnacksServices, SnacksServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
