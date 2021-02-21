@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FoodBoxWebApi.Business.Intefaces
 {
-    public interface ISnacksServices
+   public interface IPoductServices
     {
-        Task<List<SnacksDTO>> GetSnacks();
-        Task<SnacksDTO> GetSnacksById(int ID);
+        Task<List<PoductDTO>> GetPoduct();
+        Task<PoductDTO> GetPoductById(int ID);
     }
 }

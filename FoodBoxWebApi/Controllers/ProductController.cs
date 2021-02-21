@@ -12,22 +12,22 @@ namespace FoodBoxWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SnacksController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        // GET: api/<SnacksController>
+        // GET: api/<ProductController>
         [HttpGet]
-        public async Task<ActionResult<List<SnacksDTO>>> Get([FromServices] ISnacksServices snacks)
+        public async Task<ActionResult<List<PoductDTO>>> Get([FromServices] IPoductServices snacks)
         {
-            var data = await snacks.GetSnacks();
+            var data = await snacks.GetPoduct();
 
             return Ok(data);
         }
 
-        // GET api/<SnacksController>/5
+        // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SnacksDTO>> Get(int id, [FromServices] ISnacksServices snacks)
+        public async Task<ActionResult<PoductDTO>> Get(int id, [FromServices] IPoductServices snacks)
         {
-            var data = await snacks.GetSnacksById(id);
+            var data = await snacks.GetPoductById(id);
 
             return Ok(data);
         }

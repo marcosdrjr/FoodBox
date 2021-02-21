@@ -9,39 +9,36 @@ using FoodBoxWebApi.Settings;
 
 namespace FoodBoxWebApi.Business.Implemetations
 {
-    public class SnacksServices : ISnacksServices
+    public class PoductServices : IPoductServices
     {
-
         private readonly ConfigurationSettings configuration;
 
-        public SnacksServices(ConfigurationSettings configuration)
+        public PoductServices(ConfigurationSettings configuration)
         {
             this.configuration = configuration;
         }
 
-        public async Task<List<SnacksDTO>> GetSnacks()
+        public async Task<List<PoductDTO>> GetPoduct()
         {
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
-                var sql = "exec [SP_Snacks]";
-                var ret = await connection.QueryAsync<SnacksDTO>(sql);
+                var sql = "exec [SP_GetProduct]";
+                var ret = await connection.QueryAsync<PoductDTO>(sql);
                 return ret.ToList();
             }
-
         }
 
-        public async Task<SnacksDTO> GetSnacksById(int id)
-        {
+        public async Task<PoductDTO> GetPoductById(int id)
+        {   
             using (var connection = new SqlConnection(configuration.ConnectionStrings))
             {
                 await connection.OpenAsync();
-                var sql = "exec [SP_SnacksById] @id_snacks";
-                var values = new { id_snacks = id };
-                var ret = await connection.QueryFirstOrDefaultAsync<SnacksDTO>(sql,values);
+                var sql = "exec [SP_GetProductById] @id_product";
+                var values = new { id_product = id };
+                var ret = await connection.QueryFirstOrDefaultAsync<PoductDTO>(sql, values);
                 return ret;
             }
-
         }
     }
 }

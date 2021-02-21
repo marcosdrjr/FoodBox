@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodBoxWindForms", "FoodBox
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{F1EA99AA-8034-49A6-95A2-9FED09A6D717}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodBoxLibrary", "FoodBoxLibrary\FoodBoxLibrary.csproj", "{D7F2211D-B4FC-4444-A528-985292AF4D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodBoxLibrary", "FoodBoxLibrary\FoodBoxLibrary.csproj", "{D7F2211D-B4FC-4444-A528-985292AF4D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

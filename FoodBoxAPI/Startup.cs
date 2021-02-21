@@ -1,6 +1,3 @@
-using FoodBoxWebApi.Business.Implemetations;
-using FoodBoxWebApi.Business.Intefaces;
-using FoodBoxWebApi.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,13 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FoodBoxWebApi
+namespace FoodBoxAPI
 {
     public class Startup
     {
@@ -29,19 +25,7 @@ namespace FoodBoxWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodBoxWebApi", Version = "v1" });
-            });
-
-            services.AddScoped<ConfigurationSettings>();
-            services.AddScoped<ISnacksServices, SnacksServices>();
-            services.AddScoped<IPoductServices, PoductServices>();
-            
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,8 +34,6 @@ namespace FoodBoxWebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodBoxWebApi v1"));
             }
 
             app.UseHttpsRedirection();
